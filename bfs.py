@@ -1,20 +1,20 @@
+from typing import Literal
 from pyamaze import maze, agent, COLOR
-import random
 import tk_state_patch
 
-m = maze(100, 100)
+m = maze(50, 50)
 m.CreateMaze()
 a = agent(m, filled=True, footprints=True)
 
 
-def coord_in_direction(position, direction):
+def coord_in_direction(position: tuple[int, int], direction: Literal['N', 'S', 'E', 'W']):
     r, c = position
-    d = direction.upper()
-    if d == 'N': return (r - 1, c)
-    if d == 'S': return (r + 1, c)
-    if d == 'E': return (r, c + 1)
-    if d == 'W': return (r, c - 1)
-    raise ValueError(f"Direção inválida: {direction}")
+    deltas = {'N': (-1, 0), 'S': (1, 0), 'E': (0, 1), 'W': (0, -1)}
+    try:
+        dr, dc = deltas[direction]
+        return (r + dr, c + dc)
+    except KeyError:
+        raise ValueError(f"Direção inválida: {direction}")
 
 
 def bfs(maze_obj: maze, start, goal):
@@ -44,9 +44,6 @@ def bfs(maze_obj: maze, start, goal):
 
 
 
-
-
-
-m.tracePath({a: bfs(m, a.position, (1,1))}, delay=5)
+m.tracePath({a: bfs(m, a.position, (1,1))}, delay=50)
 
 m.run()

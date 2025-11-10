@@ -2,7 +2,7 @@ import random
 import math
 
 TAMANHO_POPULAÇÃO = 100
-NUMERO_GERACOES = 4000
+NUMERO_GERACOES = 1000
 TAXA_CROSSOVER = 0.65
 TAXA_MUTAÇÃO = 0.008
 
@@ -64,8 +64,8 @@ def start_population():
             child1, child2 = crossover(parent1, parent2)
             children.extend([child1, child2])
 
-        if len(children) > TAMANHO_POPULAÇÃO:
-            population = children[:-1]
+
+        population = children[:TAMANHO_POPULAÇÃO]
 
         for i in range(len(population)):
             if random.random() < TAXA_MUTAÇÃO:
@@ -75,8 +75,7 @@ def start_population():
         
         yield population[0]
 
-x = None
-for i in start_population():
-    if i != x:
+
+if __name__ == '__main__':
+    for i in start_population():
         print(i, decode(i), evaluation(i))
-        x = i

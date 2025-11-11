@@ -3,7 +3,7 @@ import random
 import tk_state_patch
 
 # ====== CONFIGURAÇÕES ======
-start = (50, 50)
+start = (15, 15)
 goal = (1, 1)
 m = maze(*start)
 m.CreateMaze(loopPercent=50)

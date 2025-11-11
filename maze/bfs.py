@@ -2,8 +2,8 @@ from typing import Literal
 from pyamaze import maze, agent, COLOR
 import tk_state_patch
 
-m = maze(50, 50)
-m.CreateMaze()
+m = maze(150, 150)
+m.CreateMaze(loopPercent=50)
 a = agent(m, filled=True, footprints=True)
 
 
@@ -44,6 +44,6 @@ def bfs(maze_obj: maze, start, goal):
 
 
 
-m.tracePath({a: bfs(m, a.position, (1,1))}, delay=50)
+m.tracePath({a: bfs(m, a.position, (1,1))}, delay=5)
 
 m.run()

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import time
 from maximizar_funcao import start_population, evaluation, decode, NUMERO_GERACOES
+import os
 
 def plotar_em_tempo_real():
     """
@@ -51,15 +52,35 @@ def plotar_em_tempo_real():
 
     with open("best_fitness_history.txt", "w") as f:
         f.write('\n'.join([str(i) for i in list(dict.fromkeys(best_fitness_history))]))
+
+
+    results_string = (
+        "--- Resultado Final ---\n"
+        f"Melhor Cromossomo: {final_best_chromosome}\n"
+        f"Melhor Aptidão (F6): {final_fitness:.8f}\n"
+        f"Melhores Coordenadas: x={final_x:.8f}, y={final_y:.8f}\n"
+    )
+ 
     
-    print("\n--- Resultado Final ---")
-    print(f"Melhor Cromossomo: {final_best_chromosome}")
-    print(f"Melhor Aptidão (F6): {final_fitness:.8f}")
-    print(f"Melhores Coordenadas: x={final_x:.8f}, y={final_y:.8f}")
-    
+    # Cria uma pasta para salvar os resultados
+    results_folder = f"ag_results/result_{time.strftime('%Y%m%d_%H%M%S')}"
+    os.makedirs(results_folder)
+
+    # Salva os dados finais em um arquivo
+    with open(os.path.join(results_folder, "final_results.txt"), "w") as f:
+        f.write(results_string)
+
+    # Salva o histórico de aptidão
+    with open(os.path.join(results_folder, "best_fitness_history.txt"), "w") as f:
+        f.write('\n'.join([str(i) for i in list(dict.fromkeys(best_fitness_history))]))
+
+
+    print(results_string)
+
     # Desativa o modo interativo e mostra o gráfico final
     plt.ioff()
     ax.set_title('Convergência Final do AG')
+    plt.savefig(os.path.join(results_folder, "convergencia_ag.png"))
     plt.show()
     
 

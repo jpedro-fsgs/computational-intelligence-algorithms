@@ -1,0 +1,4 @@
+--- Resultado Final ---
+Melhor Cromossomo: 01111101011001010100000111110011110001000000
+Melhor Aptidão (F6): 0.99028409
+Melhores Coordenadas: x=-2.03473616, y=-2.38950310
